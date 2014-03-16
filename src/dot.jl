@@ -77,3 +77,24 @@ function plot(g::AbstractGraph)
     to_dot(g, stdin)
     close(stdin)
 end
+
+function from_dot(string::String)
+    pos = 1
+    len = length(string)
+
+    function parse_char(c::Char)
+        skip_whitespace()
+        if pos > len || string[pos] != c
+            error("Expected $c at position $pos")
+        else
+            pos = pos + 1
+            skip_whitespace()
+        end
+    end
+
+    function skip_whitespace()
+        while pos <= len && isspace(string[pos])
+            pos = pos + 1
+        end
+    end
+end
