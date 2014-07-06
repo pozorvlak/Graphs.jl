@@ -73,7 +73,7 @@ function edge_op(graph::AbstractGraph)
 end
 
 function plot(g::AbstractGraph)
-    stdin, proc = writesto(`neato -Tx11`)
-    to_dot(g, stdin)
-    close(stdin)
+    open(`neato -Tx11`, "w", STDOUT) do io
+        to_dot(g, io)
+    end
 end
